@@ -1,19 +1,23 @@
 import { Model } from "sequelize/types";
 
-const store = {
+const STORE = {
 
 };
 
 export function storeAddModel (name: string, model: any) {
-    store[name] = model;
+    STORE[name] = model;
 }
 
 export function storeGetModel (name): any {
-    const model = store[name] ? store[name]: null;
-    
+    const model = STORE[name] ? STORE[name]: null;
+
     if(!model) {
         throw new Error(`Model '${name}' doesn't exist`);
     }
 
     return model;
+}
+
+export function storeGetAll () {
+    return STORE;
 }

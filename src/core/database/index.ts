@@ -1,5 +1,8 @@
-import sequelize, { Sequelize, Dialect } from "sequelize";
-import { storeAddModel, storeGetModel } from "./store";
+import { Sequelize, Dialect } from "sequelize";
+
+//app imports
+import { storeAddModel, storeGetModel, storeGetAll } from "./store";
+import { ChatFactory } from "./model/chat.model";
 
 const processVars = process.env;
 
@@ -22,9 +25,12 @@ const db = new Sequelize (
 );
 
 //load our models
+const ChatModel = ChatFactory(db);
 
+//add them to the store
+storeAddModel("chats", ChatModel);
 
 db.authenticate();
 db.sync({force: true});
 
-export default null;
+export default db;
